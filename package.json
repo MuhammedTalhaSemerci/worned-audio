@@ -1,6 +1,6 @@
 {
   "name": "worned-audio",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is an api that can generate noises for musics to make them older.",
   "main": "index.js",
   "scripts": {
