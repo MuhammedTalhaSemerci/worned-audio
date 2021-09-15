@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+  <style>
+
+
+    .play-but-div
+    {
+      display:flex;
+      justify-content:center;
+    }
+
+    #play
+    {
+      font-size: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      width:300px;
+      height:auto;
+      background-color:aqua;
+      color:white;
+      border:0px;
+      border-radius:5px;
+    }
+
+
+  </style>
+
+
+  <div class="play-but-div">
+<input id="audio_file" type="file" accept="audio/*" />
+
+    <button id="play" data-touched="0" disabled>Başlat</button>
+  </div>
+  <script src="/index.js"></script>
+    <script>
+
+        /*const audioContext = new AudioContext();
+        const SAMPLE_RATE = audioContext.sampleRate;
+        const timeLength = 10; // measured in seconds
+
+
+
+        const buffer = audioContext.createBuffer(
+        1,
+        SAMPLE_RATE * timeLength,
+        SAMPLE_RATE
+        );
+        const channelData = buffer.getChannelData(0);
+        for (let i = 0; i < buffer.length; i++) {
+            if(Math.random() > 0.9998)
+            {
+                channelData[i] =  Math.random() * 5 - 1;
+                channelData[i-1] = channelData[i]/2;
+                channelData[i-2] = channelData[i]/4;
+                channelData[i-3] = channelData[i]/8;
+
+
+                channelData[i+1] = channelData[i]/2;
+                channelData[i+2] = channelData[i]/4;
+                channelData[i+3] = channelData[i]/8;
+
+
+
+            }
+        }
+        console.log(channelData);
+    
+        const whiteNoiseSource = audioContext.createBufferSource();
+        whiteNoiseSource.buffer = buffer;   
+    
+        const primaryGainControl = audioContext.createGain();
+        primaryGainControl.gain.setValueAtTime(0.05, 0);
+
+        whiteNoiseSource.connect(primaryGainControl);
+        primaryGainControl.connect(audioContext.destination);
+
+        const button = document.createElement("button");
+        button.innerText = "White Noise";
+        document.body.appendChild(button);
+        button.addEventListener("click", () => {
+            const whiteNoiseSource = audioContext.createBufferSource();
+            whiteNoiseSource.buffer = buffer;
+            whiteNoiseSource.connect(primaryGainControl);
+
+            whiteNoiseSource.start();
+        });
+*/
+
+
+
+
+
+var audio_file = document.getElementById("audio_file"); 
+var play_but = document.getElementById("play");
+
+  const wornedSound1 = new wornedSound();
+  const playButton = document.querySelector('#play');
+    
+  
+  audio_file.addEventListener("change",async function(){
+    play_but.innerHTML = "Lütfen bekleyin...";
+    var files = this.files;
+    var file = await URL.createObjectURL(files[0]); 
+    await wornedSound1.fileToFloat32Arr(file);
+    playButton.disabled = false;
+    play_but.innerHTML = "Başlat";
+
+    /*window.fetch(file)
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        playButton.disabled = false;
+        yodelBuffer = audioBuffer;
+        play_but.innerHTML = "Başlat";
+              
+      });*/
+  },true)
+  
+
+  //var source = context.createBufferSource();
+
+  play_but.addEventListener("click",() =>{
+    
+    if(play_but.dataset.touched == 0)
+    {
+      wornedSound1.play();
+
+      play_but.innerHTML = "Başlatıldı";
+      play_but.dataset.touched = 1;
+    } 
+    else if(play_but.dataset.touched == 1)
+    {
+      wornedSound1.wait()
+      play_but.innerHTML = "Duraklatıldı";
+      play_but.dataset.touched = 0;
+    } 
+  });
+
+
+
+
+    </script>
+
+</body>
+</html>
