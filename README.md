@@ -13,4 +13,4 @@ This library has basicly 2 steps to start a worned sound;
 2-> `play()` Secondly, enjoy the sound. 
 
 Demo:
-[a link](http://worned-audio.nutuva.com)
+[worned-audio](http://worned-audio.nutuva.com)
