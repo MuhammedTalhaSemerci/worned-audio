@@ -39,15 +39,43 @@
       display:flex;
       justify-content:center;
     }
+    .btn
+    {
+      background-color: #4f4f4f;
+      border:0px;
+      border-radius:5px;
+      padding:5px;
+      font-size:15px;
+      margin:1px;
+    }
+    .restart-btn
+    {
+      background-color: #4f4f4f;
+      border:0px;
+      border-radius:5px;
+      padding:5px;
+      font-size:15px;
+      margin:1px;
+    }
+    .restart-btn:hover
+    {
+      background-color: #636262;
+
+    }
 
 
   </style>
 
   <div class="abs-parent">
     <div class="play-but-div">
-        <input id="audio_file" type="file" accept="audio/*"  style="color:white;">
+        <input class="btn" id="audio_file" type="file" accept="audio/*"  style="color:white;">
+    </div>
+    <div class="play-but-div">
+      <button class="restart-btn" id="restart-but" onclick="wornedSoundRestart()">Restart</button>
     </div>
   </div>
+
+
   <script src="/index.js"></script>
   <div class="noise"></div>
   <div class="container" data-touched="0" id="pickup" disabled>
@@ -131,6 +159,10 @@ var descriptionBaseHTML = description.innerHTML;
     var file = await URL.createObjectURL(files[0]); 
     await wornedSound1.fileToFloat32Arr(file);
     playButton.disabled = false;
+    playButton.dataset.touched = 0;
+
+    toggle.style.cssText = " width:10px;height:10px;border-radius: 5px;background-color:red;margin-left:10px;box-shadow: inset 0 0 2px #000;";
+    arm_container.style.cssText = "width:50px;height:93px;z-index: 2;margin-left:185px;margin-top:40px;";
     for(i=0;i<first.length;i++)
     {
       first[i].style.cssText = "";
@@ -138,6 +170,7 @@ var descriptionBaseHTML = description.innerHTML;
     for(i=0;i<main.length;i++)
     {
       main[i].style.cssText = "";
+      
     }
     for(i=0;i<last.length;i++)
     {
@@ -154,8 +187,9 @@ var descriptionBaseHTML = description.innerHTML;
     if(play_but.dataset.touched == 0 && playButton.disabled == 0)
     {
       wornedSound1.play();
-      toggle.style.cssText = " width:10px;height:10px;border-radius: 5px;background-color:red;margin-left:10px;-webkit-animation-name: toggle; -webkit-animation-duration:123s;-webkit-animation-iteration-count:1;-moz-animation-name: toggle; -moz-animation-duration:123s;-moz-animation-delay:9s;-moz-animation-iteration-count:1;box-shadow: inset 0 0 2px #000;";
-      arm_container.style.cssText = "width:50px;height:93px;z-index: 2;margin-left:185px;margin-top:40px;-webkit-animation-name: arm; -webkit-animation-duration:125s;-webkit-animation-iteration-count:1;-webkit-animation-timing-function: ease-out;-moz-animation-name: arm; -moz-animation-duration:125s;-moz-animation-iteration-count:1;-moz-animation-delay:10s;-moz-animation-timing-function: ease-out;";
+      wornedSound1.loop(true);
+      toggle.style.cssText = " width:10px;height:10px;border-radius: 5px;background-color:red;margin-left:10px;-webkit-animation-name: toggle; -webkit-animation-duration:500s;-webkit-animation-iteration-count:1;-moz-animation-name: toggle; -moz-animation-duration:500s;-moz-animation-delay:9s;-moz-animation-iteration-count:1;box-shadow: inset 0 0 2px #000;";
+      arm_container.style.cssText = "width:50px;height:93px;z-index: 2;margin-left:185px;margin-top:40px;-webkit-animation-name: arm; -webkit-animation-duration:502s;-webkit-animation-iteration-count:1;-webkit-animation-timing-function: ease-out;-moz-animation-name: arm; -moz-animation-duration:502s;-moz-animation-iteration-count:1;-moz-animation-delay:10s;-moz-animation-timing-function: ease-out;";
       
       for(i=0;i<first.length;i++)
       {
@@ -163,12 +197,15 @@ var descriptionBaseHTML = description.innerHTML;
       }
       for(i=0;i<main.length;i++)
       {
-        main[i].style.cssText = "   -webkit-animation-name: spin; -webkit-animation-duration:1.1s;-webkit-animation-delay:3s;-webkit-animation-iteration-count:110;-webkit-animation-timing-function:linear;-moz-animation-name: spin; -moz-animation-duration:1.1s;-moz-animation-delay:3s;-moz-animation-iteration-count:110;-moz-animation-timing-function:linear;";
+        main[i].style.cssText = "   -webkit-animation-name: spin; -webkit-animation-duration:1.1s;-webkit-animation-delay:3s;-webkit-animation-iteration-count:infinite;-webkit-animation-timing-function:linear;-moz-animation-name: spin; -moz-animation-duration:1.1s;-moz-animation-delay:3s;-moz-animation-iteration-count:infinite;-moz-animation-timing-function:linear;";
       }
+
+     /* 
+     
       for(i=0;i<last.length;i++)
       {
         last[i].style.cssText = "  -webkit-animation-name: spin; -webkit-animation-duration:10s;-webkit-animation-iteration-count:1;-webkit-animation-delay:124s;-webkit-animation-timing-function: ease-out;-moz-animation-name: spin; -moz-animation-duration:10s;-moz-animation-iteration-count:1;-moz-animation-delay:124s;-moz-animation-timing-function: ease-out;"; 
-      }
+      }*/
       play_but.dataset.touched = 1;
     } 
     else if(play_but.dataset.touched == 1 && playButton.disabled == 0)
@@ -193,6 +230,9 @@ var descriptionBaseHTML = description.innerHTML;
   });
 
 
+  var wornedSoundRestart = ()=>{
+    wornedSound1.restart()
+  } 
 
 
     </script>

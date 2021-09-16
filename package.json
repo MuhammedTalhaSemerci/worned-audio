@@ -1,6 +1,6 @@
 {
   "name": "worned-audio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is an api that can generate noises for musics to make them older.",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,14 @@
     "type": "git",
     "url": "https://github.com/MuhammedTalhaSemerci"
   },
+  "keywords": [
+    "audio",
+    "web",
+    "generator",
+    "noise generator",
+    "tool",
+    "javascript"
+  ],
   "author": "le_quasimodo_sans_amor",
   "license": "ISC",
   "dependencies": {

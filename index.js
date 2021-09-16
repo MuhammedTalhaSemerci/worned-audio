@@ -27,9 +27,9 @@ class wornedSound
     }
   }
 
-  async fileToFloat32Arr(url="")
+  async fileToFloat32Arr(blobUrl="")
   {
-    await window.fetch(url)
+    await window.fetch(blobUrl)
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => this.context.decodeAudioData(arrayBuffer))
     .then(audioBuffer => {
@@ -62,13 +62,22 @@ class wornedSound
 
   restart()
   {
-    this.source.connect();
+    this.source.disconnect();
+    this.source = this.context.createBufferSource();
+    this.source.buffer =  this.audioBuffer;
+    this.source.connect(this.context.destination);
     this.source.start();
+    this.context.resume();
   }
 
   stop()
   {
-    this.source.disconnect();
+    this.source.stop();
+  }
+
+  loop(isLoop=false)
+  {
+    this.source.loop = isLoop;
   }
  
 }
